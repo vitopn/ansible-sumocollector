@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  author: your name
-  description: 
-  company: your company (optional)
+  author: William Gregorian
+  description: Ansible Role to instal SumoLogic SumoCollector
+  company: Omada Health
   # Some suggested licenses:
   # - BSD (default)
   # - MIT
@@ -10,14 +10,14 @@ galaxy_info:
   # - GPLv3
   # - Apache
   # - CC-BY
-  license: license (GPLv2, CC-BY, etc)
-  min_ansible_version: 1.2
+  license: license (MIT)
+  min_ansible_version: 1.7
   #
   # Below are all platforms currently available. Just uncomment
   # the ones that apply to your role. If you don't see your 
   # platform on this list, let us know and we'll get it added!
   #
-  #platforms:
+  platforms:
   #- name: EL
   #  versions:
   #  - all
@@ -69,7 +69,7 @@ galaxy_info:
   #  - 9.1
   #  - 9.1
   #  - 9.2
-  #- name: Ubuntu
+  - name: Ubuntu
   #  versions:
   #  - all
   #  - lucid
@@ -80,7 +80,7 @@ galaxy_info:
   #  - quantal
   #  - raring
   #  - saucy
-  #  - trusty
+    - trusty
   #- name: SLES
   #  versions:
   #  - all
@@ -94,18 +94,18 @@ galaxy_info:
   #  versions:
   #  - all
   #  - any
-  #- name: Debian
+  - name: Debian
   #  versions:
   #  - all
   #  - etch
   #  - lenny
   #  - squeeze
-  #  - wheezy
+    - wheezy
   #
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
   #
-  #categories:
+  categories:
   #- cloud
   #- cloud:ec2
   #- cloud:gce
@@ -115,7 +115,7 @@ galaxy_info:
   #- database:nosql
   #- database:sql
   #- development
-  #- monitoring
+  - monitoring
   #- networking
   #- packaging
   #- system

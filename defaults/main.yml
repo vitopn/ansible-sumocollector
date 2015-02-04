@@ -1,2 +1,12 @@
 ---
-# defaults file for ansible-sumocollector
+sumologic_installer_remote_file: /tmp/sumocollector.deb
+sumocollector_installer_download: ""
+sumologic_collector_accessid: ""
+sumologic_collector_accesskey: ""
+sumologic_collector_clobber: ""
+sumologic_installer_file: ""
+sumologic_collector_source_template: "collector.json.j2"
+sumologic_collector_timezone: "UTC"
+sumologic_collector_force_timzone: "false"
+sumologic_collector_default_log_path:
+  - { name: "Sys Log", path: "/var/log/syslog.log", use_multiline: false, category: "OS/Linux/Syslog" }

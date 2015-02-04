@@ -1,0 +1,21 @@
+{
+  "api.version": "v1",
+  "sources": [
+{% for source in sumologic_collector_log_paths %}
+    {
+      "name": "{{ source.name }}",
+      "sourceType": "LocalFile",
+      "automaticDateParsing": true,
+      "multilineProcessingEnabled": false,
+      "useAutolineMatching": true,
+      "forceTimeZone": {{ sumologic_collector_force_timzone }},
+      "timeZone": "{{ sumologic_collector_timezone }}",
+      "category": "{{ source.category }}",
+      "pathExpression": "{{ source.path }}"
+    }
+    {% if not loop.last %}
+        ,
+    {% endif %}
+{% endfor %}
+  ]
+}

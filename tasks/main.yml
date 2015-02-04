@@ -1,2 +1,44 @@
 ---
-# tasks file for ansible-sumocollector
+- name: 'Check for SumoCollector'
+  command: dpkg-query -l sumocollector
+  register: sumologic_collector_deb_check
+  failed_when: no
+  tags: sumologic
+
+- name: 'Download SumoColllector'
+  get_url:
+    url: '{{ sumocollector_installer_download }}'
+    dest: '{{ sumologic_installer_remote_file }}'
+  when: sumologic_collector_deb_check.rc == 1
+  tags: sumologic
+
+- name: 'Install SumoCollector'
+  apt:
+    deb: '{{ sumologic_installer_remote_file }}'
+    state: installed
+  when: sumologic_collector_deb_check.rc == 1
+  tags: sumologic
+
+- name: 'Configure SumoCollector'
+  template:
+    src: sumo.conf.j2
+    dest: /etc/sumo.conf
+  register: sumologic_collector_add_configuration
+  tags: sumologic
+
+- name: 'Define initial SumoCollector sources'
+  set_fact:
+    sumologic_collector_log_paths: "{{ sumologic_collector_default_log_path|list + sumologic_collector_application_log_path|list }}"
+  tags: [sumologic, sumologic-collector]
+
+- name: 'Create collector configuration'
+  template:
+    src: collector.json.j2
+    dest: /etc/sumologic-collector.json
+  tags: [sumologic, sumologic-collector]
+
+- name: 'Restart SumoCollector'
+  service:
+    name: collector
+    state: restarted
+  tags: [sumologic, sumologic-collector]
