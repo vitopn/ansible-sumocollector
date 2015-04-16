@@ -18,6 +18,7 @@
     state: installed
   when: sumologic_collector_deb_check.rc == 1
   tags: sumologic
+  notify: Restart SumoCollector
 
 - name: 'Configure SumoCollector'
   template:
@@ -25,6 +26,7 @@
     dest: /etc/sumo.conf
   register: sumologic_collector_add_configuration
   tags: sumologic
+  notify: Restart SumoCollector
 
 - name: 'Define initial SumoCollector sources'
   set_fact:
@@ -36,9 +38,4 @@
     src: collector.json.j2
     dest: /etc/sumologic-collector.json
   tags: [sumologic, sumologic-collector]
-
-- name: 'Restart SumoCollector'
-  service:
-    name: collector
-    state: restarted
-  tags: [sumologic, sumologic-collector]
+  notify: Restart SumoCollector
