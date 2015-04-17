@@ -9,6 +9,8 @@ Role Variables
 Default variables:
 
 ```
+sumocollector_installer_rpm: https://collectors.sumologic.com/rest/download/rpm/64
+sumologic_installer_rpm_local_folder: /tmp
 sumologic_installer_remote_file: /tmp/sumo.deb
 sumocollector_installer_download: ""
 sumologic_collector_accessid: ""

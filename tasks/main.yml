@@ -20,6 +20,22 @@
   tags: sumologic
   notify: Restart SumoCollector
 
+
+- name: 'Download SumoColllector redhat'
+  get_url:
+    url: '{{ sumocollector_installer_rpm }}'
+    dest: '{{ sumologic_installer_rpm_local_folder }}/sumo_collector.rpm'
+  when: ansible_os_family == "RedHat"
+  tags: sumologic
+
+- name: 'Install SumoCollector redhat'
+  yum:
+    name: '{{ sumologic_installer_rpm_local_folder }}/sumo_collector.rpm'
+    state: present
+  when: ansible_os_family == "RedHat"
+  tags: sumologic
+  notify: Restart SumoCollector
+
 - name: 'Configure SumoCollector'
   template:
     src: sumo.conf.j2
