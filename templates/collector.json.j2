@@ -6,7 +6,7 @@
       "name": "{{ source.name }}",
       "sourceType": "LocalFile",
       "automaticDateParsing": true,
-      "multilineProcessingEnabled": false,
+      "multilineProcessingEnabled": "{{ source.use_multiline }}",
       "useAutolineMatching": true,
       "forceTimeZone": {{ sumologic_collector_force_timzone }},
       "timeZone": "{{ sumologic_collector_timezone }}",
