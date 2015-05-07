@@ -1,7 +1,9 @@
 Role Name
 =========
 
-Ansible role to install SumoCollector. This role was inspired by modcloth's SumoCollector role, but it goes one step further by including the ability to include additional log paths.
+Ansible role to install SumoCollector. This role was inspired by William Gregorian's SumoCollector.
+I added support for installing on centos.
+I am also respecting the source use_multiline setting
 
 Role Variables
 --------------
@@ -47,5 +49,7 @@ MIT
 
 Author Information
 ------------------
+Forked from: William Gregorian, Omada Health, Inc. 
 
-William Gregorian, Omada Health, Inc. Open to pull requests.
+
+Open to pull requests.
