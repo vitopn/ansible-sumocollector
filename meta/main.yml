@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  author: William Gregorian
+  author: Vito Paine
   description: Ansible Role to instal SumoLogic SumoCollector
-  company: Omada Health
+  company: NA
   # Some suggested licenses:
   # - BSD (default)
   # - MIT
