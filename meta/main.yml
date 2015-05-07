@@ -18,6 +18,8 @@ galaxy_info:
   # platform on this list, let us know and we'll get it added!
   #
   platforms:
+  - name: EL
+  - 6
   #- name: EL
   #  versions:
   #  - all
