@@ -19,7 +19,8 @@ galaxy_info:
   #
   platforms:
   - name: EL
-  - 6
+    versions:
+    - 6
   #- name: EL
   #  versions:
   #  - all
@@ -72,6 +73,8 @@ galaxy_info:
   #  - 9.1
   #  - 9.2
   - name: Ubuntu
+    versions:
+    - trusty
   #  versions:
   #  - all
   #  - lucid
@@ -82,7 +85,7 @@ galaxy_info:
   #  - quantal
   #  - raring
   #  - saucy
-  - trusty
+  #  - trusty
   #- name: SLES
   #  versions:
   #  - all
@@ -97,12 +100,14 @@ galaxy_info:
   #  - all
   #  - any
   - name: Debian
+    versions:
+    - wheezy
   #  versions:
   #  - all
   #  - etch
   #  - lenny
   #  - squeeze
-  - wheezy
+  #  - wheezy
   #
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
