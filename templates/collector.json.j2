@@ -7,7 +7,12 @@
       "sourceType": "LocalFile",
       "automaticDateParsing": true,
       "multilineProcessingEnabled": "{{ source.use_multiline }}",
-      "useAutolineMatching": true,
+      {% if source['use_autoline_matching'] is not defined or source['use_autoline_matching'] == true %}
+        "useAutolineMatching": true,
+      {% else %}
+        "useAutolineMatching":false,
+        "manualPrefixRegexp":"{{ source.manual_prefix_regex }}",
+      {% endif %}
       "forceTimeZone": {{ sumologic_collector_force_timzone }},
       "timeZone": "{{ sumologic_collector_timezone }}",
       "category": "{{ source.category }}",

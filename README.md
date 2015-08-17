@@ -33,6 +33,20 @@ sumologic_collector_application_log_path:
   - { name: "APP LOG", path: "/var/log/APP.log", use_multiline: false, category: "APP" }
 ```
 
+Example with multiline processing (Infer Boundaries) 
+```
+sumologic_collector_application_log_path:
+  - { name: "Tomcat", path: "/usr/local/tomcat/logs/catalina.out", use_multiline: true, category: "staging/tomcat/catalina" }
+```
+
+Example with Boundary Regex for manual multiline processing.
+```
+sumologic_collector_application_log_path:
+  - { name: "Tomcat", path: "/usr/local/tomcat/logs/catalina.out", use_multiline: true, category: "staging/tomcat/catalina", use_autoline_matching: false, manual_prefix_regex: 'Timestamp=[\\d-:]+ [\\d:,]+\\s\\|\\sPriority=\\w+\\s+\\|\\sCategory=\\S+\\s\\|\\sLine=\\d+\\s\\|\\sThread=[\\w\\d-]+\\s\\|\\sMessage=.*' }
+```
+
+
+
 Example Playbook
 ----------------
 
