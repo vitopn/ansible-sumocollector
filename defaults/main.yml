@@ -5,7 +5,6 @@ sumologic_installer_rpm_local_folder: /tmp
 sumocollector_installer_download: ""
 sumologic_collector_accessid: ""
 sumologic_collector_accesskey: ""
-sumologic_collector_clobber: ""
 sumologic_installer_file: ""
 sumologic_collector_source_template: "collector.json.j2"
 sumologic_collector_timezone: "UTC"
