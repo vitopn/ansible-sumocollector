@@ -3,22 +3,25 @@
   command: dpkg-query -l sumocollector
   register: sumologic_collector_deb_check
   failed_when: no
+  when: ansible_os_family == "Debian"
   tags: sumologic
 
 - name: 'Download SumoColllector'
   get_url:
     url: '{{ sumocollector_installer_download }}'
     dest: '{{ sumologic_installer_remote_file }}'
-  when: sumologic_collector_deb_check.rc == 1
+  when: ansible_os_family == "Debian" and sumologic_collector_deb_check.rc == 1
   tags: sumologic
 
 - name: 'Install SumoCollector'
   apt:
     deb: '{{ sumologic_installer_remote_file }}'
     state: installed
-  when: sumologic_collector_deb_check.rc == 1
+  when: ansible_os_family == "Debian" and sumologic_collector_deb_check.rc == 1
   tags: sumologic
-  notify: Restart SumoCollector
+  notify:
+    - Restart SumoCollector
+    - Restart SumoCollector - EL7
 
 
 - name: 'Download SumoColllector redhat'
@@ -34,7 +37,9 @@
     state: present
   when: ansible_os_family == "RedHat"
   tags: sumologic
-  notify: Restart SumoCollector
+  notify:
+    - Restart SumoCollector
+    - Restart SumoCollector - EL7
 
 - name: 'Configure SumoCollector'
   template:
@@ -42,7 +47,9 @@
     dest: /etc/sumo.conf
   register: sumologic_collector_add_configuration
   tags: sumologic
-  notify: Restart SumoCollector
+  notify:
+    - Restart SumoCollector
+    - Restart SumoCollector - EL7
 
 - name: 'Define initial SumoCollector sources'
   set_fact:
@@ -54,4 +61,6 @@
     src: collector.json.j2
     dest: /etc/sumologic-collector.json
   tags: [sumologic, sumologic-collector]
-  notify: Restart SumoCollector
+  notify:
+    - Restart SumoCollector
+    - Restart SumoCollector - EL7
