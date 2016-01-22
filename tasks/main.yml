@@ -10,6 +10,7 @@
   get_url:
     url: '{{ sumocollector_installer_download }}'
     dest: '{{ sumologic_installer_remote_file }}'
+  register: get_sumocollector_deb
   when: ansible_os_family == "Debian" and sumologic_collector_deb_check.rc == 1
   tags: sumologic
 
@@ -17,7 +18,7 @@
   apt:
     deb: '{{ sumologic_installer_remote_file }}'
     state: installed
-  when: ansible_os_family == "Debian" and sumologic_collector_deb_check.rc == 1
+  when: ansible_os_family == "Debian" and sumologic_collector_deb_check.rc == 1 and get_sumocollector_deb|changed
   tags: sumologic
   notify:
     - Restart SumoCollector
@@ -28,6 +29,7 @@
   get_url:
     url: '{{ sumocollector_installer_rpm }}'
     dest: '{{ sumologic_installer_rpm_local_folder }}/sumo_collector.rpm'
+  register: get_sumocollector_rpm
   when: ansible_os_family == "RedHat"
   tags: sumologic
 
@@ -35,7 +37,7 @@
   yum:
     name: '{{ sumologic_installer_rpm_local_folder }}/sumo_collector.rpm'
     state: present
-  when: ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat" and get_sumocollector_rpm|changed
   tags: sumologic
   notify:
     - Restart SumoCollector
