@@ -5,7 +5,7 @@
   service:
     name: collector
     state: restarted
-  when: ansible_os_family != "RedHat" and ansible_distribution_major_version != "7"
+  when: ansible_os_family != "RedHat" or ansible_distribution_major_version != "7"
   tags: [sumologic, sumologic-collector]
 
 # Workaround a bug with SysV scripts on a SystemD-based OS, with ansible 1.x.
