@@ -1,6 +1,7 @@
 {
   "api.version": "v1",
   "sources": [
+{% if sumologic_collector_application_log_path is defined %}
 {% for source in sumologic_collector_log_paths %}
     {
       "name": "{{ source.name }}",
@@ -22,5 +23,6 @@
         ,
     {% endif %}
 {% endfor %}
+{% endif %}
   ]
 }

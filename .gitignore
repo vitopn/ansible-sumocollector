@@ -45,4 +45,5 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 
-
+# Integration of Vagrantfile
+.vagrant
