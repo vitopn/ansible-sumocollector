@@ -1,22 +1,22 @@
 ---
-- name: 'Check for SumoCollector'
+- name: 'Check for SumoCollector (Debian)'
   command: dpkg-query -l sumocollector
   register: sumologic_collector_deb_check
   failed_when: no
   when: ansible_os_family == "Debian"
   tags: sumologic
 
-- name: 'Download SumoColllector'
+- name: 'Download SumoColllector (Debian)'
   get_url:
-    url: '{{ sumocollector_installer_download }}'
-    dest: '{{ sumologic_installer_remote_file }}'
+    url: '{{ sumocollector_installer_deb }}'
+    dest: '{{ sumologic_installer_deb_local_file }}'
   register: get_sumocollector_deb
   when: ansible_os_family == "Debian" and sumologic_collector_deb_check.rc == 1
   tags: sumologic
 
-- name: 'Install SumoCollector'
+- name: 'Install SumoCollector (Debian)'
   apt:
-    deb: '{{ sumologic_installer_remote_file }}'
+    deb: '{{ sumologic_installer_deb_local_file }}'
     state: installed
   when: ansible_os_family == "Debian" and sumologic_collector_deb_check.rc == 1 and get_sumocollector_deb|changed
   tags: sumologic
@@ -25,7 +25,7 @@
     - Restart SumoCollector - EL7
 
 
-- name: 'Download SumoColllector redhat'
+- name: 'Download SumoColllector (RedHat)'
   get_url:
     url: '{{ sumocollector_installer_rpm }}'
     dest: '{{ sumologic_installer_rpm_local_folder }}/sumo_collector.rpm'
@@ -33,7 +33,7 @@
   when: ansible_os_family == "RedHat"
   tags: sumologic
 
-- name: 'Install SumoCollector redhat'
+- name: 'Install SumoCollector (RedHat)'
   yum:
     name: '{{ sumologic_installer_rpm_local_folder }}/sumo_collector.rpm'
     state: present
@@ -57,6 +57,7 @@
   set_fact:
     sumologic_collector_log_paths: "{{ sumologic_collector_default_log_path|list + sumologic_collector_application_log_path|list }}"
   tags: [sumologic, sumologic-collector]
+  when: sumologic_collector_application_log_path is defined
 
 - name: 'Create collector configuration'
   template:

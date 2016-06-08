@@ -10,21 +10,34 @@ Role Variables
 
 Default variables:
 
+
+Always apply:
 ```
-sumocollector_installer_rpm: https://collectors.sumologic.com/rest/download/rpm/64
-sumologic_installer_rpm_local_folder: /tmp
-sumologic_installer_remote_file: /tmp/sumo.deb
-sumocollector_installer_download: ""
 sumologic_collector_accessid: ""
 sumologic_collector_accesskey: ""
-sumologic_collector_clobber: ""
 sumologic_installer_file: ""
 sumologic_collector_source_template: "collector.json.j2"
+sumologic_local_file_configuration_management: false
 sumologic_collector_timezone: "UTC"
 sumologic_collector_force_timzone: "false"
 sumologic_collector_default_log_path:
-  - { name: "EXAMPLE LOG", path: "/var/log/EXAMPLE.log", use_multiline: false, category: "EXAMPLE" }
+  - { name: "Sys Log", path: "/var/log/syslog.log", use_multiline: false, category: "OS/Linux/Syslog" }
 ```
+
+Debian:
+```
+sumocollector_installer_deb: "https://collectors.sumologic.com/rest/download/deb/64"
+sumologic_installer_deb_local_file: /tmp/sumocollector.deb
+
+```
+
+RedHat:
+```
+sumocollector_installer_rpm: https://collectors.sumologic.com/rest/download/rpm/64
+sumologic_installer_rpm_local_folder: /tmp
+
+```
+
 
 Group variable example:
 
@@ -33,7 +46,7 @@ sumologic_collector_application_log_path:
   - { name: "APP LOG", path: "/var/log/APP.log", use_multiline: false, category: "APP" }
 ```
 
-Example with multiline processing (Infer Boundaries) 
+Example with multiline processing (Infer Boundaries)
 ```
 sumologic_collector_application_log_path:
   - { name: "Tomcat", path: "/usr/local/tomcat/logs/catalina.out", use_multiline: true, category: "staging/tomcat/catalina" }
@@ -63,7 +76,7 @@ MIT
 
 Author Information
 ------------------
-Forked from: William Gregorian, Omada Health, Inc. 
+Forked from: William Gregorian, Omada Health, Inc.
 
 
 Open to pull requests.

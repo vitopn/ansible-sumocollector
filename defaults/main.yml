@@ -1,12 +1,17 @@
 ---
+# RedHat
 sumocollector_installer_rpm: https://collectors.sumologic.com/rest/download/rpm/64
-sumologic_installer_remote_file: /tmp/sumocollector.deb
 sumologic_installer_rpm_local_folder: /tmp
-sumocollector_installer_download: ""
+
+# Debian
+sumocollector_installer_deb: "https://collectors.sumologic.com/rest/download/deb/64"
+sumologic_installer_deb_local_file: /tmp/sumocollector.deb
+
 sumologic_collector_accessid: ""
 sumologic_collector_accesskey: ""
 sumologic_installer_file: ""
 sumologic_collector_source_template: "collector.json.j2"
+sumologic_local_file_configuration_management: false
 sumologic_collector_timezone: "UTC"
 sumologic_collector_force_timzone: "false"
 sumologic_collector_default_log_path:
