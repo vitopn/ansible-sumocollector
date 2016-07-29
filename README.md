@@ -71,6 +71,19 @@ sumologic_collector_application_log_path:
         regexp: '.* HTTP/1\.1\" 204 .*'
 ```
 
+Example adding arbitrary configuration options:
+```
+sumologic_collector_application_log_path:
+  - name: "Tomcat"
+    path: "/usr/local/tomcat/logs/catalina.out"
+    use_multiline: true
+    category: "staging/tomcat/catalina"
+    extra_opts:
+      - name: cutoffTimestamp
+        value: 0
+      - name: hostname
+        value: {{ ansible_hostname }}
+```
 
 Example Playbook
 ----------------
