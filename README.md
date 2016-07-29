@@ -2,8 +2,8 @@ Role Name
 =========
 
 Ansible role to install SumoCollector. This role was inspired by William Gregorian's SumoCollector.
-I added support for installing on centos.
-I am also respecting the source use_multiline setting
+
+I added support for installing on centos. I am also respecting the source use_multiline setting.
 
 Role Variables
 --------------
@@ -58,6 +58,18 @@ sumologic_collector_application_log_path:
   - { name: "Tomcat", path: "/usr/local/tomcat/logs/catalina.out", use_multiline: true, category: "staging/tomcat/catalina", use_autoline_matching: false, manual_prefix_regex: 'Timestamp=[\\d-:]+ [\\d:,]+\\s\\|\\sPriority=\\w+\\s+\\|\\sCategory=\\S+\\s\\|\\sLine=\\d+\\s\\|\\sThread=[\\w\\d-]+\\s\\|\\sMessage=.*' }
 ```
 
+Filters example:
+```
+sumologic_collector_application_log_path:
+  - name: "Tomcat"
+    path: "/usr/local/tomcat/logs/catalina.out"
+    use_multiline: true
+    category: "staging/tomcat/catalina"
+    filters:
+      - name: Exclude 204 status code
+        filterType: Exclude
+        regexp: '.* HTTP/1\.1\" 204 .*'
+```
 
 
 Example Playbook

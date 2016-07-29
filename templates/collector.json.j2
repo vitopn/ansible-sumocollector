@@ -18,6 +18,20 @@
       "timeZone": "{{ sumologic_collector_timezone }}",
       "category": "{{ source.category }}",
       "pathExpression": "{{ source.path }}"
+      {% if source["filters"] is defined %},
+        "filters": [
+          {% for f in source["filters"] %}
+            {
+              "filterType": "{{ f.filterType }}",
+              "name": "{{ f.name }}",
+              "regexp": "{{ f.regexp }}"
+            }
+            {% if not loop.last %}
+              ,
+            {% endif %}
+          {% endfor %}
+        ]
+      {% endif %}
     }
     {% if not loop.last %}
         ,
