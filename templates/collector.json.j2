@@ -32,6 +32,14 @@
           {% endfor %}
         ]
       {% endif %}
+    {% if source["extra_opts"] is defined %},
+        {% for opt in source["extra_opts"] %}
+            "{{ opt.name }}": "{{ opt.value }}"
+            {% if not loop.last %}
+                ,
+            {% endif %}
+        {% endfor %}
+    {% endif %}
     }
     {% if not loop.last %}
         ,
