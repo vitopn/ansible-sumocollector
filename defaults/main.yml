@@ -1,12 +1,16 @@
 ---
-# RedHat
+# RedHat -- yum_install.yml
 sumocollector_installer_rpm: https://collectors.sumologic.com/rest/download/rpm/64
 sumologic_installer_rpm_local_folder: /tmp
 
-# Debian
+# Debian -- apt_install.yml
 sumocollector_installer_deb: "https://collectors.sumologic.com/rest/download/deb/64"
 sumologic_installer_deb_local_file: /tmp/sumocollector.deb
 
+# main.yml
+sumologic_configure_collector: true
+
+# collector_setup.yml
 sumologic_collector_accessid: ""
 sumologic_collector_accesskey: ""
 sumologic_installer_file: ""

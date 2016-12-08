@@ -1,69 +1,12 @@
 ---
-- name: 'Check for SumoCollector (Debian)'
-  command: dpkg-query -l sumocollector
-  register: sumologic_collector_deb_check
-  failed_when: no
-  when: ansible_os_family == "Debian"
-  tags: sumologic
+- name: Run apt and install SumoLogic Collector
+  include: apt_install.yml
+  when: ansible_os_family == 'Debian' and ansible_distribution == 'Ubuntu'
 
-- name: 'Download SumoColllector (Debian)'
-  get_url:
-    url: '{{ sumocollector_installer_deb }}'
-    dest: '{{ sumologic_installer_deb_local_file }}'
-  register: get_sumocollector_deb
-  when: ansible_os_family == "Debian" and sumologic_collector_deb_check.rc == 1
-  tags: sumologic
+- name: Run yum and install SumoLogic Collector
+  include: yum_install.yml
+  when: ansible_os_family == 'RedHat'
 
-- name: 'Install SumoCollector (Debian)'
-  apt:
-    deb: '{{ sumologic_installer_deb_local_file }}'
-    state: installed
-  when: ansible_os_family == "Debian" and sumologic_collector_deb_check.rc == 1 and get_sumocollector_deb|changed
-  tags: sumologic
-  notify:
-    - Restart SumoCollector
-    - Restart SumoCollector - EL7
-
-
-- name: 'Download SumoColllector (RedHat)'
-  get_url:
-    url: '{{ sumocollector_installer_rpm }}'
-    dest: '{{ sumologic_installer_rpm_local_folder }}/sumo_collector.rpm'
-  register: get_sumocollector_rpm
-  when: ansible_os_family == "RedHat"
-  tags: sumologic
-
-- name: 'Install SumoCollector (RedHat)'
-  yum:
-    name: '{{ sumologic_installer_rpm_local_folder }}/sumo_collector.rpm'
-    state: present
-  when: ansible_os_family == "RedHat" and get_sumocollector_rpm|changed
-  tags: sumologic
-  notify:
-    - Restart SumoCollector
-    - Restart SumoCollector - EL7
-
-- name: 'Configure SumoCollector'
-  template:
-    src: sumo.conf.j2
-    dest: /etc/sumo.conf
-  register: sumologic_collector_add_configuration
-  tags: sumologic
-  notify:
-    - Restart SumoCollector
-    - Restart SumoCollector - EL7
-
-- name: 'Define initial SumoCollector sources'
-  set_fact:
-    sumologic_collector_log_paths: "{{ sumologic_collector_default_log_path|list + sumologic_collector_application_log_path|list }}"
-  tags: [sumologic, sumologic-collector]
-  when: sumologic_collector_application_log_path is defined
-
-- name: 'Create collector configuration'
-  template:
-    src: collector.json.j2
-    dest: /etc/sumologic-collector.json
-  tags: [sumologic, sumologic-collector]
-  notify:
-    - Restart SumoCollector
-    - Restart SumoCollector - EL7
+- name: Collector Setup
+  include: collector_setup.yml
+  when: sumologic_configure_collector == true
