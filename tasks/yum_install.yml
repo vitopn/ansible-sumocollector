@@ -1,0 +1,11 @@
+- name: 'Download SumoColllector (RedHat)'
+  get_url:
+    url: '{{ sumocollector_installer_rpm }}'
+    dest: '{{ sumologic_installer_rpm_local_folder }}/sumo_collector.rpm'
+  register: get_sumocollector_rpm
+
+- name: 'Install SumoCollector (RedHat)'
+  yum:
+    name: '{{ sumologic_installer_rpm_local_folder }}/sumo_collector.rpm'
+    state: present
+  when: get_sumocollector_rpm|changed

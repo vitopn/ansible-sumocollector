@@ -1,0 +1,19 @@
+- name: 'Configure SumoCollector'
+  template:
+    src: sumo.conf.j2
+    dest: /etc/sumo.conf
+  register: sumologic_collector_add_configuration
+  notify:
+    - Restart SumoCollector
+
+- name: 'Define initial SumoCollector sources'
+  set_fact:
+    sumologic_collector_log_paths: "{{ sumologic_collector_default_log_path|list + sumologic_collector_application_log_path|list }}"
+  when: sumologic_collector_application_log_path is defined
+
+- name: 'Create collector configuration'
+  template:
+    src: collector.json.j2
+    dest: /etc/sumologic-collector.json
+  notify:
+    - Restart SumoCollector

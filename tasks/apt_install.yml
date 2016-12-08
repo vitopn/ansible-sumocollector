@@ -1,0 +1,17 @@
+- name: 'Check for SumoCollector (Debian)'
+  command: dpkg-query -l sumocollector
+  register: sumologic_collector_deb_check
+  failed_when: no
+
+- name: 'Download SumoColllector (Debian)'
+  get_url:
+    url: '{{ sumocollector_installer_deb }}'
+    dest: '{{ sumologic_installer_deb_local_file }}'
+  register: get_sumocollector_deb
+  when: sumologic_collector_deb_check.rc == 1
+
+- name: 'Install SumoCollector (Debian)'
+  apt:
+    deb: '{{ sumologic_installer_deb_local_file }}'
+    state: installed
+  when: sumologic_collector_deb_check.rc == 1 and get_sumocollector_deb|changed
