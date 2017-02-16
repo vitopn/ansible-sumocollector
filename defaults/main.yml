@@ -9,6 +9,7 @@ sumologic_installer_deb_local_file: /tmp/sumocollector.deb
 
 # main.yml
 sumologic_configure_collector: true
+sumologic_use_monit: false
 
 # collector_setup.yml
 sumologic_collector_accessid: ""
