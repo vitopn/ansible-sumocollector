@@ -1,0 +1,6 @@
+check process sumocollector with pidfile /opt/SumoCollector/collector.pid
+  start program = "/usr/sbin/service collector start"
+  stop program = "/usr/sbin/service collector stop"
+  if not exist for 3 cycles then restart
+  if not exist then alert
+  if 3 restarts within 3 cycles then timeout

@@ -10,3 +10,12 @@
 - name: Collector Setup
   include: collector_setup.yml
   when: sumologic_configure_collector == true
+
+- name: Monit setup
+  template:
+    src: "monit-sumocollector.cfg.j2"
+    dest: "/etc/monit/conf.d/sumocollector.cfg"
+    owner: root
+    group: root
+    mode: 0600
+  when: sumologic_use_monit
